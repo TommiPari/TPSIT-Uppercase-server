@@ -17,10 +17,16 @@ public class Main {
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
 
-        String stringaRicevuta = in.readLine();
-        System.out.println("Stringa ricevuta: " + stringaRicevuta);
-
-        out.writeBytes("Ciao sono il server!\n");
+        String stringaRicevuta;
+        do {
+            stringaRicevuta = in.readLine();
+            if (stringaRicevuta.equals("0")) {
+                System.out.println("Comunicazione terminata!");
+            } else  {
+                System.out.println("Stringa ricevuta: " + stringaRicevuta + "\n");
+                out.writeBytes(stringaRicevuta.toUpperCase() + "\n");
+            }
+        } while (!stringaRicevuta.equals("0"));
 
         s.close();
         ss.close();
